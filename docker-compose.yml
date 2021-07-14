@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  php-fpm:
+    build: docker/php-fpm/
+    volumes:
+      - ./server:/var/www/server
+    depends_on:
+      - postgres
+  #####
+  postgres:
+    build: docker/postgres/
+    volumes:
+      - ./database:/var/lib/postgresql/data
+      - ./docker/postgres/dumps/:/tmp/
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=docker
+  #####
+  nginx:
+    build: docker/nginx/
+    volumes:
+      - ./server/:/var/www/server
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/sites/:/etc/nginx/sites-available
+    depends_on:
+      - php-fpm
+
