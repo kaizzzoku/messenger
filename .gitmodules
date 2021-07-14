@@ -1,0 +1,6 @@
+[submodule "server"]
+	path = server
+	url = git@github.com:kaizzzoku/messenger-server.git
+[submodule "client"]
+	path = client
+	url = git@github.com:kaizzzoku/messenger-client.git
